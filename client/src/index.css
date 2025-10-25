@@ -1,0 +1,246 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles for react-big-calendar */
+.rbc-toolbar {
+  color: #0ea5e9 !important;
+}
+
+.rbc-toolbar button {
+  color: #0ea5e9 !important;
+}
+
+.rbc-toolbar button:hover {
+  color: #0284c7 !important;
+}
+
+.rbc-toolbar-label {
+  color: #0ea5e9 !important;
+  font-weight: 600;
+}
+
+/* Fix recharts tooltip hover text color */
+.recharts-tooltip-wrapper {
+  color: #0ea5e9 !important;
+}
+
+.recharts-tooltip-content {
+  color: #0ea5e9 !important;
+}
+
+.recharts-tooltip-item {
+  color: #0ea5e9 !important;
+}
+
+.recharts-tooltip-label {
+  color: #0ea5e9 !important;
+}
+
+/* Fix any white text on hover */
+.hover\:text-white:hover {
+  color: #0ea5e9 !important;
+}
+
+/* Fix button hover text colors */
+.hover\:text-white:hover,
+button:hover .text-white {
+  color: #0ea5e9 !important;
+}
+
+/* Fix dropdown menu text colors */
+.MuiMenuItem-root,
+.MuiMenuItem-root *,
+[role="menuitem"],
+[role="menuitem"] * {
+  color: #0ea5e9 !important;
+}
+
+/* Fix all dropdown text */
+.MuiMenu-root .MuiMenuItem-root,
+.MuiMenu-root .MuiMenuItem-root * {
+  color: #0ea5e9 !important;
+}
+
+/* Calendar date text color - change from white to sky blue */
+.rbc-date-cell {
+  color: #0ea5e9 !important;
+}
+
+.rbc-day-bg {
+  color: #0ea5e9 !important;
+}
+
+.rbc-off-range-bg {
+  color: #0ea5e9 !important;
+}
+
+.rbc-today {
+  color: #0ea5e9 !important;
+}
+
+/* ==============================
+   🌈 COLOR THEME
+   ============================== */
+:root {
+  --mu-primary: #1a1f2c; /* Dark bluish-black (major background color) */
+  --mu-secondary: #242d3d; /* Slightly lighter bluish-black (accent color) */
+  --mu-text: #ffffff; /* White text */
+  --mu-text-hover: #e6e6e6; /* Slightly dimmed white for hover */
+  --mu-bg-light: #1a1f2c; /* Light shade of bluish-black for backgrounds */
+  --mu-bg-lighter: #242d3d; /* Lighter shade of bluish-black for hover states */
+  --mu-bg-lightest: #2d374a; /* Lightest shade of bluish-black for active states */
+}
+
+/* ==============================
+   🌆 GLOBAL STYLING
+   ============================== */
+body {
+  background-color: var(--mu-primary);
+  background-image: 
+    linear-gradient(to bottom right, rgba(45, 0, 81, 0.95), rgba(58, 0, 107, 0.8));
+  color: var(--mu-text);
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Content area backgrounds */
+.content-area {
+  background: linear-gradient(to bottom right, rgba(45, 0, 81, 0.85), rgba(58, 0, 107, 0.6));
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+/* ==============================
+   🌍 BASE ELEMENTS
+   ============================== */
+@layer base {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  /* Override backgrounds with theme colors */
+  .bg-white, 
+  .MuiPaper-root,
+  .MuiAppBar-root,
+  .MuiCard-root,
+  .MuiToolbar-root,
+  .MuiDialog-paper,
+  .MuiPopover-paper,
+  .MuiDrawer-paper,
+  .MuiDataGrid-root,
+  .MuiDataGrid-cell,
+  .MuiDataGrid-columnHeader,
+  .MuiDataGrid-footerContainer,
+  .MuiDataGrid-toolbarContainer,
+  .MuiTableContainer-root,
+  .MuiTable-root,
+  .MuiTableHead-root,
+  .MuiTableBody-root,
+  .MuiTableRow-root,
+  .MuiTableCell-root,
+  .MuiSelect-root,
+  .MuiMenu-paper,
+  .MuiModal-root,
+  .MuiBackdrop-root,
+  input, select, textarea, option {
+    background-color: var(--mu-bg-light) !important;
+    color: var(--mu-text) !important;
+    border-color: var(--mu-bg-lighter) !important;
+  }
+
+  /* Hover states */
+  .MuiTableRow-root:hover,
+  .MuiMenuItem-root:hover,
+  .MuiListItem-root:hover,
+  button:hover {
+    background-color: var(--mu-bg-lighter) !important;
+  }
+
+  /* Active/Selected states */
+  .Mui-selected,
+  .MuiDataGrid-row.Mui-selected,
+  .MuiTableRow-root.Mui-selected {
+    background-color: var(--mu-bg-lightest) !important;
+  }
+  
+  /* Ensure text is gold on all elements */
+  .MuiTypography-root,
+  .MuiInputBase-root,
+  .MuiButton-root,
+  .MuiMenuItem-root,
+  .MuiListItemText-primary,
+  .MuiListItemText-secondary {
+    color: var(--mu-text) !important;
+  }
+
+  a, p, h1, h2, h3, h4, h5, h6, span {
+    color: var(--mu-text);
+  }
+
+  button {
+    background-color: var(--mu-secondary);
+    color: var(--mu-text);
+    font-weight: 500;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #240042; /* darker purple */
+    color: var(--mu-text-hover);
+  }
+}
+
+/* ==============================
+   📱 RESPONSIVE HEIGHT
+   ============================== */
+@media (max-width: 620px) {
+  .fullHeight {
+    height: calc(100vh - 7rem);
+  }
+}
+
+@media (min-width: 621px) {
+  .fullHeight {
+    height: calc(100vh - 4rem);
+  }
+}
+
+/* ==============================
+   🧭 SCROLLBARS
+   ============================== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--mu-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--mu-text);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--mu-text-hover);
+}
+
+/* ==============================
+   📁 PLACEHOLDERS & FILE INPUTS
+   ============================== */
+.custom-placeholder {
+  background-color: rgba(152, 255, 152, 0.1);
+  border: 2px dashed var(--mu-secondary);
+  border-radius: 4px;
+  color: var(--mu-text);
+}
+
+#filebase_image > input[type="file"] {
+  display: none;
+}

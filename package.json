@@ -1,0 +1,12 @@
+{
+  "name": "crm-portfolio",
+  "version": "1.0.0",
+  "description": "GrowCRM - Real Estate Agency Management System",
+  "scripts": {
+    "build": "cd client && npm install && npm run build",
+    "dev": "cd client && npm run dev"
+  },
+  "keywords": ["crm", "real-estate", "management", "portfolio"],
+  "author": "Your Name",
+  "license": "MIT"
+}
