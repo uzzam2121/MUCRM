@@ -40,6 +40,7 @@ import Home from "./ClientPanel/Home";
 import TranscriptPage from "./Pages/Transcript/TranscriptPage";
 import { mockDemoUser } from "./mockData";
 import DemoBanner from "./Components/DemoBanner";
+import { loadMockData } from "./utils/mockDataLoader";
 
 const App = () => {
   ///////////////////////////////////// VARIABLES ////////////////////////////////////////
@@ -60,11 +61,11 @@ const App = () => {
 
   // Auto-login demo user for portfolio showcase
   useEffect(() => {
-    if (!loggedUser) {
-      // Set demo user for portfolio showcase
-      dispatch(loginReducer(mockDemoUser));
-    }
-  }, [loggedUser, dispatch]);
+    // Always set demo user for portfolio showcase
+    dispatch(loginReducer(mockDemoUser));
+    // Load all mock data
+    loadMockData();
+  }, [dispatch]);
 
   ///////////////////////////////////// Functions ////////////////////////////////////////
 
@@ -73,17 +74,11 @@ const App = () => {
       <DemoBanner />
       <div className="flex flex-col w-full h-screen bg-[#1a1f2c]">
         {!loggedUser ? (
-          <div className={`flex justify-center items-center w-full `}>
-            <Routes>
-              <Route exact path="/auth/register" element={<Register />} />
-              <Route exact path="/auth/login" element={<Login />} />
-              <Route exact path="/auth/forgot_password" element={<ForgotPassword />} />
-              <Route exact path="/auth/newpassword" element={<ResetPassword />} />
-              <Route exact path="/auth/forgot_password/enter_code" element={<InputCode />} />
-              <Route exact path="/auth/change_password" element={<Navigate to="/auth/register" />} />
-              <Route path="/" element={<Navigate to="/auth/login" />} />
-              <Route path="/:anyotherRoutes" element={<Navigate to="/auth/login" />} />
-            </Routes>
+          <div className="flex justify-center items-center w-full h-screen">
+            <div className="text-white text-center">
+              <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-white mx-auto mb-4"></div>
+              <p>Loading Portfolio Demo...</p>
+            </div>
           </div>
         ) : loggedUser.role != "client" ? (
           <div
@@ -92,7 +87,7 @@ const App = () => {
             <div className="flex flex-col flex-1 overflow-y-scroll">
               <div className="flex p-[1rem] w-full">
                 <Routes>
-                  <Route path="/" element={<DashBoard />} />
+                  <Route path="/" element={<Navigate to="/dashboard" />} />
                   <Route path="/dashboard" element={<DashBoard />} />
                   <Route path="/auth/register" element={<Navigate to="/" />} />
                   <Route path="/auth/login" element={<Navigate to="/" />} />
