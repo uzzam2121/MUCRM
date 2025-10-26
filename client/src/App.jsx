@@ -61,13 +61,22 @@ const App = () => {
 
   // Auto-login demo user for portfolio showcase
   useEffect(() => {
+    console.log('🚀 App initializing...');
+    
     // Always set demo user for portfolio showcase
     dispatch(loginReducer(mockDemoUser));
-    // Load all mock data
-    loadMockData();
+    console.log('👤 Demo user logged in');
+    
+    // Load mock data after a short delay to ensure Redux is ready
+    setTimeout(() => {
+      console.log('📊 Loading mock data...');
+      loadMockData();
+    }, 100);
   }, [dispatch]);
 
   ///////////////////////////////////// Functions ////////////////////////////////////////
+
+  console.log('🔍 Current loggedUser:', loggedUser);
 
   return (
     <div>

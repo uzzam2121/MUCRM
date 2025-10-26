@@ -27,36 +27,40 @@ import { getEventsReducer } from '../redux/reducer/event';
 
 // Load all mock data into Redux store
 export const loadMockData = () => {
-  const dispatch = store.dispatch;
+  try {
+    const dispatch = store.dispatch;
 
-  // Load Leads
-  dispatch(getLeadsReducer(mockLeads));
-  dispatch(getLeadsStatReducer(mockDashboardSummary));
+    // Load Leads
+    dispatch(getLeadsReducer(mockLeads));
+    dispatch(getLeadsStatReducer(mockDashboardSummary));
 
-  // Load Tasks
-  dispatch(getTasksReducer(mockTasks));
+    // Load Tasks
+    dispatch(getTasksReducer(mockTasks));
 
-  // Load Projects
-  dispatch(getProjectsReducer(mockProjects));
+    // Load Projects
+    dispatch(getProjectsReducer(mockProjects));
 
-  // Load Inventory
-  dispatch(getInventoriesReducer(mockInventory));
+    // Load Inventory
+    dispatch(getInventoriesReducer(mockInventory));
 
-  // Load Societies
-  dispatch(getSocietiesReducer(mockSocieties));
+    // Load Societies
+    dispatch(getSocietiesReducer(mockSocieties));
 
-  // Load Users
-  dispatch(getEmployeesReducer(mockEmployees));
-  dispatch(getClientsReducer(mockClients));
+    // Load Users
+    dispatch(getEmployeesReducer(mockEmployees));
+    dispatch(getClientsReducer(mockClients));
 
-  // Load Cashbook
-  dispatch(getCashbooksReducer(mockCashBook));
+    // Load Cashbook
+    dispatch(getCashbooksReducer(mockCashBook));
 
-  // Load Notifications
-  dispatch(getNotificationsReducer(mockNotifications));
+    // Load Notifications
+    dispatch(getNotificationsReducer(mockNotifications));
 
-  // Load Events
-  dispatch(getEventsReducer(mockEvents));
+    // Load Events
+    dispatch(getEventsReducer(mockEvents));
 
-  console.log('✅ Mock data loaded successfully for portfolio demo');
+    console.log('✅ Mock data loaded successfully for portfolio demo');
+  } catch (error) {
+    console.error('❌ Error loading mock data:', error);
+  }
 };
