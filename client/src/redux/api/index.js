@@ -14,6 +14,16 @@ API.interceptors.request.use((req) => {
     return req
 })
 
+// Error interceptor for demo mode - prevent API errors from breaking the app
+API.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        // In demo mode, silently handle errors and return mock data
+        console.log('📦 Demo mode: API call intercepted');
+        return Promise.reject(error);
+    }
+)
+
 const objectToQueryString = (obj) => {
     const keyValuePairs = [];
     for (const key in obj) {

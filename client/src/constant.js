@@ -1,6 +1,6 @@
 // Portfolio Demo Mode - No backend needed
-export const baseURL = 'mock://demo-mode'
-export const rootURL = 'mock://demo-mode'
+export const baseURL = ''
+export const rootURL = ''
 
 // Uncomment these lines if you want to use a real backend
 // export const baseURL = process.env.REACT_APP_API_URL || 'http://localhost:4000/api/v1'
