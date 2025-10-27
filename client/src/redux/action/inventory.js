@@ -2,11 +2,25 @@ import toast from 'react-hot-toast'
 import * as api from '../api'
 import { start, end, error, getInventoryReducer, getInventoriesReducer, createInventoryReducer, updateInventoryReducer, deleteInventoryReducer, } from '../reducer/inventory'
 import { getUsersReducer } from '../reducer/user'
+import { baseURL } from '../../constant'
+import { mockInventory } from '../../mockData'
 
+// Check if we're in demo mode
+const isDemoMode = () => baseURL === ''
 
 export const getInventory = (inventoryId) => async (dispatch) => {
     try {
         dispatch(start())
+        
+        // Demo mode: return mock data
+        if (isDemoMode()) {
+            await new Promise(resolve => setTimeout(resolve, 300))
+            const inventory = mockInventory.find(i => i._id === inventoryId) || mockInventory[0]
+            dispatch(getInventoryReducer(inventory))
+            dispatch(end())
+            return
+        }
+        
         const { data } = await api.getInventory(inventoryId)
         dispatch(getInventoryReducer(data.result))
         dispatch(end())
@@ -19,6 +33,15 @@ export const getInventory = (inventoryId) => async (dispatch) => {
 export const getInventories = () => async (dispatch) => {
     try {
         dispatch(start())
+        
+        // Demo mode: return mock data
+        if (isDemoMode()) {
+            await new Promise(resolve => setTimeout(resolve, 300))
+            dispatch(getInventoriesReducer(mockInventory))
+            dispatch(end())
+            return
+        }
+        
         const { data } = await api.getInventories()
         dispatch(getInventoriesReducer(data.result))
         dispatch(end())

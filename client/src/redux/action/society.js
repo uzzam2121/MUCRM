@@ -2,11 +2,25 @@ import toast from 'react-hot-toast'
 import * as api from '../api'
 import { start, end, error, getSocietyReducer, getSocietiesReducer, createSocietyReducer, updateSocietyReducer, deleteSocietyReducer, } from '../reducer/society'
 import { getUsersReducer } from '../reducer/user'
+import { baseURL } from '../../constant'
+import { mockSocieties } from '../../mockData'
 
+// Check if we're in demo mode
+const isDemoMode = () => baseURL === ''
 
 export const getSociety = (societyId) => async (dispatch) => {
     try {
         dispatch(start())
+        
+        // Demo mode: return mock data
+        if (isDemoMode()) {
+            await new Promise(resolve => setTimeout(resolve, 300))
+            const society = mockSocieties.find(s => s._id === societyId) || mockSocieties[0]
+            dispatch(getSocietyReducer(society))
+            dispatch(end())
+            return
+        }
+        
         const { data } = await api.getSociety(societyId)
         dispatch(getSocietyReducer(data.result))
         dispatch(end())
@@ -19,6 +33,15 @@ export const getSociety = (societyId) => async (dispatch) => {
 export const getSocieties = () => async (dispatch) => {
     try {
         dispatch(start())
+        
+        // Demo mode: return mock data
+        if (isDemoMode()) {
+            await new Promise(resolve => setTimeout(resolve, 300))
+            dispatch(getSocietiesReducer(mockSocieties))
+            dispatch(end())
+            return
+        }
+        
         const { data } = await api.getSocieties()
         dispatch(getSocietiesReducer(data.result))
         dispatch(end())

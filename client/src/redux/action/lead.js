@@ -2,11 +2,24 @@ import { useSelector } from 'react-redux'
 import * as api from '../api'
 import { start, end, error, getLeadsReducer, getLeadReducer, getLeadsStatReducer, createLeadReducer, updateLeadReducer, deleteLeadReducer, } from '../reducer/lead'
 import toast from 'react-hot-toast'
+import { baseURL } from '../../constant'
+import { mockLeads, mockDashboardSummary } from '../../mockData'
 
+// Check if we're in demo mode
+const isDemoMode = () => baseURL === ''
 
 export const getLeads = () => async (dispatch) => {
     try {
         dispatch(start())
+        
+        // Demo mode: return mock data
+        if (isDemoMode()) {
+            await new Promise(resolve => setTimeout(resolve, 300)) // Simulate API delay
+            dispatch(getLeadsReducer(mockLeads))
+            dispatch(end())
+            return
+        }
+        
         const { data } = await api.getLeads()
         dispatch(getLeadsReducer(data.result))
         dispatch(end())
@@ -20,6 +33,15 @@ export const getLeads = () => async (dispatch) => {
 export const getEmployeeLeads = () => async (dispatch) => {
     try {
         dispatch(start())
+        
+        // Demo mode: return mock data
+        if (isDemoMode()) {
+            await new Promise(resolve => setTimeout(resolve, 300))
+            dispatch(getLeadsReducer(mockLeads))
+            dispatch(end())
+            return
+        }
+        
         const { data } = await api.getEmployeeLeads()
         dispatch(getLeadsReducer(data.result))
         dispatch(end())
@@ -33,6 +55,16 @@ export const getEmployeeLeads = () => async (dispatch) => {
 export const getLead = (leadId) => async (dispatch) => {
     try {
         dispatch(start())
+        
+        // Demo mode: return mock data
+        if (isDemoMode()) {
+            await new Promise(resolve => setTimeout(resolve, 300))
+            const lead = mockLeads.find(l => l._id === leadId) || mockLeads[0]
+            dispatch(getLeadReducer(lead))
+            dispatch(end())
+            return
+        }
+        
         const { data } = await api.getLead(leadId)
         dispatch(getLeadReducer(data.result))
         dispatch(end())
@@ -57,6 +89,15 @@ export const getLeadByPhone = (phone) => async (dispatch) => {
 export const getLeadsStat = (type) => async (dispatch) => {
     try {
         dispatch(start())
+        
+        // Demo mode: return mock data
+        if (isDemoMode()) {
+            await new Promise(resolve => setTimeout(resolve, 300))
+            dispatch(getLeadsStatReducer(mockDashboardSummary))
+            dispatch(end())
+            return
+        }
+        
         const { data } = await api.getLeadsStat(type)
         dispatch(getLeadsStatReducer(data.result))
         dispatch(end())

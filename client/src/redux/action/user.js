@@ -2,6 +2,11 @@ import toast from 'react-hot-toast'
 import * as api from '../api'
 import { start, end, error, registerReducer, loginReducer, logoutReducer, getUserReducer, getClientsReducer, getUsersReducer, getEmployeesReducer, createClientReducer, createEmployeeReducer, updateUserReducer, deleteUserReducer, } from '../reducer/user'
 import Cookies from 'js-cookie'
+import { baseURL } from '../../constant'
+import { mockEmployees, mockClients } from '../../mockData'
+
+// Check if we're in demo mode
+const isDemoMode = () => baseURL === ''
 
 export const register = (userData, navigate) => async (dispatch) => {
     try {
@@ -89,6 +94,15 @@ export const logout = (navigate) => async (dispatch) => {
 export const getUsers = () => async (dispatch) => {
     try {
         dispatch(start())
+        
+        // Demo mode: return mock data
+        if (isDemoMode()) {
+            await new Promise(resolve => setTimeout(resolve, 300))
+            dispatch(getUsersReducer([...mockEmployees, ...mockClients]))
+            dispatch(end())
+            return
+        }
+        
         const { data } = await api.getUsers()
         dispatch(getUsersReducer(data.result))
         dispatch(end())
@@ -101,6 +115,15 @@ export const getUsers = () => async (dispatch) => {
 export const getClients = () => async (dispatch) => {
     try {
         dispatch(start())
+        
+        // Demo mode: return mock data
+        if (isDemoMode()) {
+            await new Promise(resolve => setTimeout(resolve, 300))
+            dispatch(getClientsReducer(mockClients))
+            dispatch(end())
+            return
+        }
+        
         const { data } = await api.getClients()
         dispatch(getClientsReducer(data.result))
         dispatch(end())
@@ -125,6 +148,15 @@ export const getEmployeeClients = () => async (dispatch) => {
 export const getEmployees = () => async (dispatch) => {
     try {
         dispatch(start())
+        
+        // Demo mode: return mock data
+        if (isDemoMode()) {
+            await new Promise(resolve => setTimeout(resolve, 300))
+            dispatch(getEmployeesReducer(mockEmployees))
+            dispatch(end())
+            return
+        }
+        
         const { data } = await api.getEmployees()
         dispatch(getEmployeesReducer(data.result))
         dispatch(end())

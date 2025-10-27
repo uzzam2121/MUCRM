@@ -1,11 +1,25 @@
 import toast from 'react-hot-toast'
 import * as api from '../api'
 import { start, end, error, getCashbookReducer, getCashbooksReducer, getSpecificDateCashbookReducer, getIncomeAndExpensesReducer, getPaymentsReducer, createCashbookReducer, deleteCashbookReducer, } from '../reducer/cashbook'
+import { baseURL } from '../../constant'
+import { mockCashBook } from '../../mockData'
 
+// Check if we're in demo mode
+const isDemoMode = () => baseURL === ''
 
 export const getCashbook = (cashbookId) => async (dispatch) => {
     try {
         dispatch(start())
+        
+        // Demo mode: return mock data
+        if (isDemoMode()) {
+            await new Promise(resolve => setTimeout(resolve, 300))
+            const cashbook = mockCashBook.find(c => c._id === cashbookId) || mockCashBook[0]
+            dispatch(getCashbookReducer(cashbook))
+            dispatch(end())
+            return
+        }
+        
         const { data } = await api.getCashbook(cashbookId)
         dispatch(getCashbookReducer(data.result))
         dispatch(end())
@@ -18,6 +32,15 @@ export const getCashbook = (cashbookId) => async (dispatch) => {
 export const getCashbooks = () => async (dispatch) => {
     try {
         dispatch(start())
+        
+        // Demo mode: return mock data
+        if (isDemoMode()) {
+            await new Promise(resolve => setTimeout(resolve, 300))
+            dispatch(getCashbooksReducer(mockCashBook))
+            dispatch(end())
+            return
+        }
+        
         const { data } = await api.getCashbooks()
         dispatch(getCashbooksReducer(data.result))
         dispatch(end())
